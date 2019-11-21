@@ -62,6 +62,7 @@ const validation = (event) => {
 // -------------- DATA STORAGE --------------
 // add applicant's info
 // update applicant's info
+// remove applicant's info
 
 
 
