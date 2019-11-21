@@ -28,39 +28,47 @@ const validation = (event) => {
   let email = document.getElementById('email');
   let address = document.getElementById('address');
 
-  // validate name
-  if (name.value === "") {
-    console.log("Please type your name")
-  }
-  //validate gender 
-  if (gender.options[gender.selectedIndex].text === "--select--") {
-    console.log("Please choose gender")
-  }
-
-  //validate birthday
-  if (birthday.value === "") {
-    console.log("Please enter the date of birth.")
-  }
-
-  // validate email
-  if (/^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/.test(email.value)) {
-    return true;
+  if (name.value === "" ||
+    gender.options[gender.selectedIndex].text === "--select--" || birthday.value === "" ||
+    email.value === "" ||
+    address.value === "") {
+    console.log("Please complete all fields with correct information.")
   } else {
-    console.log("You have entered an invalid email address!")
-  }
+    let applicant = new Applicant(name.value, gender.value, birthday.value, email.value, address.value);
 
-  // validate address
-  if (address.value === "") {
-    console.log("Please add your email address.")
+    Store.addToStore(applicant);
   }
+  // how to verify email address with regular expression?
+  // (/^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/.test(email.value))  
+
 }
 
 // -------------- UI --------------
 // show an error msg
 // show a success msg
+// -------------- APPLICANT --------------
+class Applicant {
+  // create an object based on the applicant form information
+  constructor(name, gender, birthday, email, address) {
+    this.name = name;
+    this.gender = gender;
+    this.birthday = birthday;
+    this.email = email;
+    this.address = address;
+  }
+}
 
 // -------------- DATA STORAGE --------------
-// add applicant's info
+class Store {
+  // add applicant's info
+  static addToStore(formData) {
+    let applicant = JSON.stringify(formData);
+    localStorage.setItem('applicant1', applicant);
+
+    console.log(localStorage);
+  }
+}
+
 // update applicant's info
 
 
